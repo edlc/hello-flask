@@ -10,7 +10,7 @@ pipeline {
 		stage ('Lint'){
 			steps{
 				sh '''
-					./hadolint Dockerfile'
+					./hadolint Dockerfile
 					make lint
 				'''
 			}
