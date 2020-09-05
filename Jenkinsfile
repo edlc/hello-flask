@@ -3,16 +3,15 @@ pipeline {
 	stages {
 		stage ('Build') {
 			steps {
-				sh ' echo "Hello flask!"'
+				sh ' make install'
 				sh ' ls -lrt'
 			}
 		}
 		stage ('Lint'){
 			steps{
-				sh 'make lint'
 				sh '''
-					./hadolint Dockerfile
-									
+					./hadolint Dockerfile		
+					make lint
 				'''
 			}
 		}
