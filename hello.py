@@ -14,5 +14,5 @@ def login():
 @app.route('/user/<username>')
 def show_user_profile(username):
     # show the user profile for that user
-    print ("Username: ", username)
+    print("Username: ", username)
     return 'User {0}'.format(username)
