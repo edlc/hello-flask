@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  eksClusterPolicy:
+    Type: String
+    Description: AmazonEKSClusterPolicy arn
+    Default: "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+Resources:
+  EksRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      RoleName: EksClusterRole
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+              - eks.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - !Ref eksClusterPolicy
+Outputs:
+  EksRole:
+    Description: A reference to the created vpc.
+    Value: !Ref EksRole
+    Export: 
+      Name: eksCluster-role

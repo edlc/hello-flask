@@ -3,9 +3,11 @@ pipeline {
 	stages {
 		stage ('Build') {
 			steps {
-				sh ' make install'
-				sh ' ls -lrt'
-			}
+				sh '''
+					 make install
+					 ./run_docker.sh
+				'''
+				}
 		}
 		stage ('Lint'){
 			steps{
@@ -14,6 +16,16 @@ pipeline {
 					make lint
 				'''
 			}
+		}
+		stage ('Upload Docker Image'){
+			steps{
+				sh ' ./upload_docker.sh'
+			}
+		}
+		stage ('Deploy'){
+		      steps{
+				sh ' ./deploy.sh'
+		      }
 		}
 	}
 }
