@@ -5,7 +5,7 @@ pipeline {
 			steps {
 				sh '''
 					 make install 
-					 whoami
+					 ./run_docker
 					
 				'''
 				}
