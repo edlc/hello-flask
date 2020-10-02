@@ -408,7 +408,7 @@ Parameters:
 
   NodeVolumeSize:
     Type: Number
-    Default: 20
+    Default: 12
     Description: Node volume size
 
   Subnets:

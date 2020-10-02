@@ -1,4 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
+Description: 'Hello Flask EKS Cluster VPC - public subnets'
 
 Parameters:
   EnvironmentName:
@@ -20,6 +21,7 @@ Resources:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock:  !Ref VpcCIDR
+      EnableDnsSupport: true
       EnableDnsHostnames: true
       Tags:
       - Key: Name
@@ -42,6 +44,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
       AvailabilityZone:
         Fn::Select:
         - '0'
@@ -53,6 +56,7 @@ Resources:
     Type: AWS::EC2::Subnet
     Properties:
       VpcId: !Ref VPC
+      MapPublicIpOnLaunch: true
       AvailabilityZone:
         Fn::Select:
         - '1'
