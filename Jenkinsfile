@@ -25,6 +25,7 @@ pipeline {
 		stage ('Deploy'){
 		      steps{
 				sh '''
+				   ls -lrta
 				   kubectl apply -f kubernetes/hello-flask-deployment.yaml
 				   kubectl apply -f kubernetes/hello-flask-service.yaml
 				'''
