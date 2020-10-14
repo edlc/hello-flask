@@ -7,7 +7,6 @@ COPY . /hello-flask
 RUN make install
 RUN ./hadolint Dockerfile
 
-
-EXPOSE 80
+EXPOSE 8000
 
 CMD ["python","/hello-flask/hello.py"]
