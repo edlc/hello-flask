@@ -27,7 +27,6 @@ pipeline {
 				sh '''
 				   kubectl apply -f kubernetes/hello-flask-deployment.yaml
 				   kubectl apply -f kubernetes/hello-flask-service.yaml
-                                   kubectl -n hello-flask set image deployment hello-flask-deployment hello-flask=cardene/hello-flask:1.0
 				'''
 		      }
 		}
