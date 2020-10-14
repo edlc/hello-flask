@@ -24,11 +24,10 @@ pipeline {
 		}
 		stage ('Deploy'){
 		      steps{
-			withCredentials([usernamePassword(credentialsId: 'jenkins-master', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+			       withAWS(region:'ap-southeast-2',credentials:'aws-static') {
 					sh '''
 			           		ls -lrta
-				 		kubectl apply -f kubernetes/hello-flask-deployment.yaml
-			           		kubectl apply -f kubernetes/hello-flask-service.yaml
+				 		kubectl get svc
 		 			'''
 				}
 		      }
