@@ -24,11 +24,13 @@ pipeline {
 		}
 		stage ('Deploy'){
 		      steps{
+			withAWS(region:'ap-southeast-2',credentials:'jenkins-master') {
 				sh '''
-				   ls -lrta
-				   kubectl apply -f kubernetes/hello-flask-deployment.yaml
-				   kubectl apply -f kubernetes/hello-flask-service.yaml
-				'''
+			           ls -lrta
+			           kubectl apply -f kubernetes/hello-flask-deployment.yaml
+			           kubectl apply -f kubernetes/hello-flask-service.yaml
+		 		'''
+				}
 		      }
 		}
 	}
