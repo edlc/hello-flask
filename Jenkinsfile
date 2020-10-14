@@ -4,7 +4,8 @@ pipeline {
 		stage ('Build') {
 			steps {
 				sh '''
-					 make install 
+					 make install
+					 ./run_docker.sh 
 				'''
 				}
 		}
