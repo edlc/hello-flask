@@ -24,7 +24,7 @@ pipeline {
 		}
 		stage ('Deploy'){
 		      steps{
-			withAWS(region:'ap-southeast-2',credentials:'jenkins-maste') {
+			withAWS(region:'ap-southeast-2',credentials:'jenkins-master') {
 					sh '''
 			           		ls -lrta
 						aws-configure
