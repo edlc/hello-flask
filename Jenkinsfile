@@ -23,8 +23,9 @@ pipeline {
 			}
 		}
 		stage ('Deploy'){
-		      withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://BB1B07604EC6D9AAB16ABB56758FC456.gr7.ap-southeast-2.eks.amazonaws.com']) {
-		      		sh 'kubectl get svc'
+		     // withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://BB1B07604EC6D9AAB16ABB56758FC456.gr7.ap-southeast-2.eks.amazonaws.com']) {
+		     steps {
+		      		sh 'ls -lrta'
 		      }
 		}
 	}
