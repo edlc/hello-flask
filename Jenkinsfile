@@ -24,12 +24,10 @@ pipeline {
 		}
 		stage ('Deploy'){
 		      steps{
-			       withAWS(region:'ap-southeast-2',credentials:'aws-static') {
-					sh '''
-			           		ls -lrta
-				 		kubectl get svc
-		 			'''
-				}
+				sh '''
+			           	ls -lrta
+				 	kubectl get svc
+		 		'''
 		      }
 		}
 	}
