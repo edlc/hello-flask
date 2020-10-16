@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	stages {
-		stage ('Build') {
+		/**stage ('Build') {
 			steps {
 				sh '''
 					 make install
@@ -27,6 +27,16 @@ pipeline {
 		     steps {
 		      		sh 'ls -lrta'
 		      }
+		}**/
+		stage ('create kube config file') {
+		      steps {
+		      	    withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master'){
+			    		    sh '''
+					       aws eks --region ap-southeast-2 update-kubeconfig --name eksCluster
+					       '''
+					       }
+			     }
+			}
 		}
 	}
 }
