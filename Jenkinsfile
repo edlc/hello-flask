@@ -4,14 +4,15 @@ pipeline {
 		registryCredential = 'dockerhub' 
 		dockerImage = '' 
 	}
-	agent { dockerfile true }
+	agent any
 	stages {
 		stage ('Build') {
 			steps {
-			      script {
-			      	     docker.withRegistry('', registryCredential) {
-			   	       dockerImage= docker.build("hello-flask:$BUILD_NUMBER")
-				     }
+			    //   script {
+			    //   	     docker.withRegistry('', registryCredential) {
+			   	//        dockerImage= docker.build("hello-flask:$BUILD_NUMBER")
+				//      }
+					sh './run_docker.sh'
 				}
 				}
 		}
