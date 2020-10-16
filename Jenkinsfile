@@ -14,8 +14,7 @@ pipeline {
 				//      }
 					sh './run_docker.sh'
 				}
-				}
-		}
+			}
 		stage ('Lint'){
 			steps{
 				sh '''
