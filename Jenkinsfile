@@ -36,7 +36,6 @@ pipeline {
 			}
 		}
 		stage ('Deploy'){
-		     
 		     steps {
 				 withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master') {
 					sh '''
@@ -45,6 +44,7 @@ pipeline {
 					'''
 		     	 }
 			}
+		}
 		stage ('Cleanup'){
 		      steps {
 		      	    sh 'docker rmi $registry:$BUILD_NUMBER'
@@ -61,6 +61,5 @@ pipeline {
 
 		       }
 	 	 }*/
-	    }
 	}
 }
