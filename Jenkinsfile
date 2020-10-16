@@ -8,11 +8,11 @@ pipeline {
 	stages {
 		stage ('Build') {
 			steps {
-			    //   script {
-			    //   	     docker.withRegistry('', registryCredential) {
-			   	//        dockerImage= docker.build("hello-flask:$BUILD_NUMBER")
-				//      }
-					sh './run_docker.sh'
+			      script {
+			       	    //  docker.withRegistry('', registryCredential) {
+			   	       dockerImage= docker.build("hello-flask:$BUILD_NUMBER")
+				     }
+					// sh './run_docker.sh'
 				}
 			}
 		stage ('Lint'){
