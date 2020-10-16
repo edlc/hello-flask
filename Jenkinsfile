@@ -10,7 +10,7 @@ pipeline {
 			steps {
 			      script {
 			       	    //  docker.withRegistry('', registryCredential) {
-			   	       dockerImage= docker.build("hello-flask:$BUILD_NUMBER")
+			   	       dockerImage= docker.build("cardene/hello-flask:$BUILD_NUMBER")
 				     }
 					// sh './run_docker.sh'
 				}
