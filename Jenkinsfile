@@ -4,11 +4,9 @@ pipeline {
 		registryCredential = 'dockerhub' 
 		dockerImage = '' 
 	}
-
-	agent any
+	agent { dockerfile true }
 	stages {
 		stage ('Build') {
-			agent { dockerfile true }
 			steps {
 			      script {
 			      	     docker.withRegistry('', registryCredential) {
