@@ -1,6 +1,6 @@
 pipeline {
 	environment {
-		registry = "cardene/hello-flask" 
+		registry = "https://registry.hub.docker.com" 
 		registryCredential = 'dockerhub' 
 		dockerImage = '' 
 	}
@@ -26,7 +26,7 @@ pipeline {
 		stage ('Upload Docker Image'){
 			steps{
 				script {
-					docker.withRegistry('', registryCredential) {
+					docker.withRegistry(registry, registryCredential) {
 						dockerImage.push('latest')
 						dockerImage.push('$BUILD_NUMBER')
 					}
