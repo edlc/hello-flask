@@ -36,14 +36,15 @@ pipeline {
 			}
 		}
 		stage ('Deploy'){
-		     withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master') {
+		     
 		     steps {
-		      	sh '''
-					kubectl kubernetes/hello-flask-deployment.yaml
-					kubectl kubernetes/hello-flask-service.yaml
-			'''
-		      }
-		}
+				 withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master') {
+					sh '''
+						kubectl kubernetes/hello-flask-deployment.yaml
+						kubectl kubernetes/hello-flask-service.yaml
+					'''
+		     	 }
+			}
 		stage ('Cleanup'){
 		      steps {
 		      	    sh 'docker rmi $registry:$BUILD_NUMBER'
