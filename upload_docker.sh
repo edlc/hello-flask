@@ -1,4 +1,4 @@
-dockerpath=cardene/hello-flask:1.0
+dockerpath=cardene/hello-flask:latest
 echo "Docker ID and Image: $dockerpath"
 #Use when user is not logged in
 #cat my_password.txt | docker login --username cardene --password-stdin

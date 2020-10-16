@@ -1,12 +1,20 @@
 pipeline {
+	environment {
+		registry = "cardene/hello-flask" 
+		registryCredential = 'dockerhub' 
+		dockerImage = '' 
+	}
+
 	agent any
 	stages {
-		/**stage ('Build') {
+		stage ('Build') {
+			agent { dockerfile true }
 			steps {
-				sh '''
-					 make install
-					 ./run_docker.sh 
-				'''
+			      script {
+			      	     docker.withRegistry('', registryCredential) {
+			   	       dockerImage= docker.build("hello-flask:$BUILD_NUMBER")
+				     }
+				}
 				}
 		}
 		stage ('Lint'){
@@ -19,16 +27,27 @@ pipeline {
 		}
 		stage ('Upload Docker Image'){
 			steps{
-				sh ' ./upload_docker.sh'
+				docker.withRegistry('', registryCredential) {
+			   	       dockerImage.push('latest')
+				       dockerImage.push('$BUILD_NUMBER')
+				}
 			}
 		}
 		stage ('Deploy'){
-		     // withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://BB1B07604EC6D9AAB16ABB56758FC456.gr7.ap-southeast-2.eks.amazonaws.com']) {
+		     withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master') {
 		     steps {
-		      		sh 'ls -lrta'
+		      	sh '''
+					kubectl kubernetes/hello-flask-deployment.yaml
+					kubectl kubernetes/hello-flask-service.yaml
+			'''
 		      }
-		}**/
-		stage ('create kube config file') {
+		}
+		stage ('Cleanup'){
+		      steps {
+		      	    sh 'docker rmi $registry:$BUILD_NUMBER'
+		      }
+		}
+		/*stage ('create kube config file') {
 		      steps {
 		      	    withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master'){
 			    		    sh '''
@@ -38,6 +57,7 @@ pipeline {
 			     }
 
 		       }
-	 	 }
+	 	 }*/
+	    }
 	}
 }

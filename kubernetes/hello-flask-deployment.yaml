@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: hello-flask
-        image: cardene/hello-flask:1.0
+        image: cardene/hello-flask:latest
         ports:
         - containerPort: 8000
