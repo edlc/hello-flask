@@ -45,7 +45,7 @@ pipeline {
 		     steps {
 				 withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master') {
 					sh '''
-						./create_namespace hello-flask
+						./kubernetes/create_namespace hello-flask
 						kubectl apply -f kubernetes/hello-flask-deployment.yaml
 						kubectl kubernetes/hello-flask-service.yaml
 					'''
