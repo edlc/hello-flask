@@ -54,7 +54,7 @@ pipeline {
 		}
 		stage ('Cleanup'){
 		      steps {
-		      	    sh 'docker rmi $registry:$BUILD_NUMBER'
+		      	    sh 'docker image rm $registry:$BUILD_NUMBER'
 		      }
 		}
 	}
