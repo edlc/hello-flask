@@ -6,13 +6,21 @@ pipeline {
 	}
 	agent any
 	stages {
+		stage ('create kube config file') {
+		      steps {
+		      	    withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master'){
+			    		sh '''
+					       aws eks --region ap-southeast-2 update-kubeconfig --name eksCluster
+					    '''
+			     }
+
+		       }
+	 	 }
 		stage ('Build') {
 			steps {
 			      script {
-			       	    //  docker.withRegistry('', registryCredential) {
 			   	       dockerImage= docker.build("cardene/hello-flask:$BUILD_NUMBER")
 				     }
-					// sh './run_docker.sh'
 				}
 			}
 		stage ('Lint'){
@@ -48,16 +56,5 @@ pipeline {
 		      	    sh 'docker rmi $registry:$BUILD_NUMBER'
 		      }
 		}
-		/*stage ('create kube config file') {
-		      steps {
-		      	    withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master'){
-			    		    sh '''
-					       aws eks --region ap-southeast-2 update-kubeconfig --name eksCluster
-					       '''
-					       
-			     }
-
-		       }
-	 	 }*/
 	}
 }
