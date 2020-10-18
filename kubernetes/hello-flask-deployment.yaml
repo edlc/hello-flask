@@ -9,14 +9,14 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hello-flask 
+      app: hello-flask
   template:
     metadata:
       labels:
         app: hello-flask
     spec:
       containers:
-      - name: hello-flask
-        image: cardene/hello-flask:latest
-        ports:
-        - containerPort: 8000
+        - name: hello-flask
+          image: cardene/hello-flask:latest
+          ports:
+            - containerPort: 8000
