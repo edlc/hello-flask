@@ -4,8 +4,8 @@ WORKDIR /hello-flask
 
 COPY . /hello-flask
 
-RUN make install
-RUN ./hadolint Dockerfile
+RUN make installt
+RUn ./hadolint Dockerfile
 
 EXPOSE 8000
 
