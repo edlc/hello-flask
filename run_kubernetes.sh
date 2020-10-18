@@ -7,14 +7,15 @@
 
 dockerpath=cardene/hello-flask:$BUILD_NUMBER
 appName=$1
-namespace=`kubectl get ns $1 -o name 2>/dev/null`
+namespace=`kubectl get ns $appName -o name 2>/dev/null`
 
 if [[ -z "$namespace" ]]; then
         echo "Creating namespace $namespace..."
-        kubectl create namespace $1
+        kubectl create namespace $appName
         kubectl apply -f kubernetes/hello-flask-deployment.yaml
         kubectl apply -f kubernetes/hello-flask-service.yaml
 else 
         echo "Updating deployment $namespace..."
-        kubectl -n $1 set image deployment $1-deployment $1=$dockerpath
+        kubectl -n $appName set image deployment $appName-deployment $appName=$dockerpath
 fi
+kubectl -n $appName get services
