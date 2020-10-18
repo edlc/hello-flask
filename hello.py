@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello flask!!! \n This is BLUE deployment.'
+    return 'Hello flask!!! \n This is ROLLING deployment.'
 
 
 @app.route('/login')
