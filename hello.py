@@ -10,7 +10,6 @@ def hello_world():
 
 @app.route('/login')
 def login():
-    test
     return 'NEW - This is the login page'
 
 
