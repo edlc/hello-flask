@@ -1,8 +1,11 @@
 pipeline {
 	environment {
-		registry = "registry.hub.docker.com" 
+		registry = "https://registry.hub.docker.com" 
+		registryWithoutProtocol="registry.hub.docker.com"
 		registryCredential = 'dockerhub' 
+		accountName = 'cardene'
 		dockerImage = '' 
+		appName = 'hello-flask'
 	}
 	agent any
 	stages {
@@ -19,7 +22,7 @@ pipeline {
 		stage ('Build') {
 			steps {
 			      script {
-			   	       dockerImage= docker.build("cardene/hello-flask:$BUILD_NUMBER")
+			   	       dockerImage= docker.build("$accountName/$appName:$BUILD_NUMBER")
 				     }
 				}
 			}
@@ -54,7 +57,8 @@ pipeline {
 		}
 		stage ('Cleanup'){
 		      steps {
-		      	    sh 'docker image rm $registry:$BUILD_NUMBER'
+		      	    sh 'docker image rm $accountName/$appName:$BUILD_NUMBER'
+					sh 'docker image rm $registryWithoutProtocol/$accountName/$appName:$BUILD_NUMBER'
 		      }
 		}
 	}
