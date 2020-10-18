@@ -9,4 +9,4 @@ RUN ./hadolint Dockerfile
 
 EXPOSE 8000
 
-CMD ["python","/hello-flask/hello.py",]
+CMD ["python","/hello-flask/hello.py"]
