@@ -47,7 +47,7 @@ pipeline {
 					sh '''
 						./kubernetes/create_namespace.sh hello-flask
 						kubectl apply -f kubernetes/hello-flask-deployment.yaml
-						kubectl kubernetes/hello-flask-service.yaml
+						kubectl apply -f kubernetes/hello-flask-service.yaml
 					'''
 		     	 }
 			}
