@@ -5,7 +5,7 @@
 # kubectl -n hello-flask get pods
 # kubectl -n hello-flask expose pod hello-flask --type=LoadBalancer --port=8111 --target-port=8000
 
-dockerpath=cardene/hello-flask:latest
+dockerpath=cardene/hello-flask:$BUILD_NUMBER
 appName=$1
 namespace=`kubectl get ns $1 -o name 2>/dev/null`
 
