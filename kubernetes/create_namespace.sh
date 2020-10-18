@@ -6,6 +6,7 @@ if [[ -n "$namespace" ]]; then
         kubectl delete namespace $1
         kubectl create namespace $1
 else 
+        echo "Creating namespace $namespace..."
         kubectl create namespace $1
 fi
 
