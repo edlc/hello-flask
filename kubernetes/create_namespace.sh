@@ -5,4 +5,4 @@ if [[ -n "$namespace" ]]; then
         kubectl delete namespace $1
 fi
 
-kubectl createnamespace $1
+kubectl create namespace $1
