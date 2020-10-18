@@ -1,5 +1,5 @@
 namespace=`kubectl get ns $1 -o name 2>/dev/null`
-
+kubectl get namespace $1
 if [[ -n "$namespace" ]]; then
         echo "Deleting namespace $namespace..."
         kubectl delete namespace $1
