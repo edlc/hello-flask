@@ -47,7 +47,7 @@ pipeline {
 		stage ('Deploy'){
 		     steps {
 				 withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master') {
-					sh './run_kubernetes.sh'
+					sh './run_kubernetes.sh $appName'
 		     	 }
 			}
 		}
