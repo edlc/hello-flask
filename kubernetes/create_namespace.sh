@@ -1,4 +1,5 @@
 namespace=`kubectl get ns $1 -o name 2>/dev/null`
+echo "Namespace: $namespace"
 kubectl get namespace $1
 if [[ -n "$namespace" ]]; then
         echo "Deleting namespace $namespace..."
