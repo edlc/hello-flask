@@ -19,13 +19,6 @@ pipeline {
 
 		       }
 	 	 }
-		stage ('Build') {
-			steps {
-			      script {
-			   	       dockerImage= docker.build("$accountName/$appName:$BUILD_NUMBER")
-				     }
-				}
-			}
 		stage ('Lint'){
 			steps{
 				sh '''
@@ -34,6 +27,13 @@ pipeline {
 				'''
 			}
 		}
+		stage ('Build') {
+			steps {
+			      script {
+			   	       dockerImage= docker.build("$accountName/$appName:$BUILD_NUMBER")
+				     }
+				}
+			}
 		stage ('Upload Docker Image'){
 			steps{
 				script {
