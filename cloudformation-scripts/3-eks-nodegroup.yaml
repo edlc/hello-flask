@@ -43,6 +43,7 @@ Parameters:
   ClusterName:
     Type: String
     Description: The cluster name provided when the cluster was created. If it is incorrect, nodes will not be able to join the cluster.
+    Default: eksCluster
 
   KeyName:
     Type: "AWS::EC2::KeyPair::KeyName"
@@ -66,6 +67,7 @@ Parameters:
   NodeGroupName:
     Type: String
     Description: Unique identifier for the Node Group.
+    Default: eksWorkerNodes
 
   NodeImageId:
     Type: String
@@ -86,7 +88,7 @@ Parameters:
 
   NodeInstanceType:
     Type: String
-    Default: t3.medium
+    Default: t2.medium
     AllowedValues:
       - a1.medium
       - a1.large

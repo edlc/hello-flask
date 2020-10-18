@@ -1,11 +1,64 @@
 pipeline {
+	environment {
+		registry = "https://registry.hub.docker.com" 
+		registryWithoutProtocol="registry.hub.docker.com"
+		registryCredential = 'dockerhub' 
+		accountName = 'cardene'
+		dockerImage = '' 
+		appName = 'hello-flask'
+	}
 	agent any
 	stages {
-		stage ('Deploy - Production'){
-		      steps{
+		stage ('create kube config file') {
+		      steps {
+		      	    withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master'){
+			    		sh '''
+					       aws eks --region ap-southeast-2 update-kubeconfig --name eksCluster
+					    '''
+			     }
+
+		       }
+	 	 }
+		stage ('Build') {
+			steps {
+			      script {
+			   	       dockerImage= docker.build("$accountName/$appName:$BUILD_NUMBER")
+				     }
+				}
+			}
+		stage ('Lint'){
+			steps{
 				sh '''
-					kubectl -n hello-flask set image deployment hello-flask-deployment hello-flask=cardene/hello-flask:1.0
+					./hadolint Dockerfile		
+					make lint
 				'''
+			}
+		}
+		stage ('Upload Docker Image'){
+			steps{
+				script {
+					docker.withRegistry(registry, registryCredential) {
+						dockerImage.push('latest')
+						dockerImage.push('$BUILD_NUMBER')
+					}
+				}
+			}
+		}
+		stage ('Deploy'){
+		     steps {
+				 withAWS(region: 'ap-southeast-2', credentials: 'jenkins-master') {
+					sh '''
+						./kubernetes/create_namespace.sh hello-flask
+						kubectl apply -f kubernetes/hello-flask-deployment.yaml
+						kubectl apply -f kubernetes/hello-flask-service.yaml
+					'''
+		     	 }
+			}
+		}
+		stage ('Cleanup'){
+		      steps {
+		      	    sh 'docker image rm $accountName/$appName:$BUILD_NUMBER'
+					sh 'docker image rm $registryWithoutProtocol/$accountName/$appName:$BUILD_NUMBER'
 		      }
 		}
 	}
