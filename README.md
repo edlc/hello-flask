@@ -11,5 +11,7 @@ The pipeline builds a docker container and deploys it to my AWS Kubernetes as a 
   * Flask-based Python App
  
  Github repository: https://github.com/edlc/hello-flask
+ 
  Dockerhub repository: https://hub.docker.com/repository/docker/cardene/hello-flask
+ 
  Screenshots: https://github.com/edlc/hello-flask/blob/master/Capstone%20Screenshots.docx / Capstone Screenshots.docx
